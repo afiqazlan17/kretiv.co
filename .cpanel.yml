@@ -1,0 +1,12 @@
+---
+# cPanel Git Version Control → "Deploy HEAD Commit" copies the site into public_html.
+# Only site files are copied; anything else already in public_html is left alone.
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/kretivco/public_html/
+    - /bin/cp -f index.html kretivprint.html about.html $DEPLOYPATH
+    - /bin/cp -Rf css js assets $DEPLOYPATH
+    # LiteSpeed returns 404 if folders are 0700 (seen on jobs.kretiv.co), so set permissions explicitly
+    - /bin/find ${DEPLOYPATH}css ${DEPLOYPATH}js ${DEPLOYPATH}assets -type d -exec /bin/chmod 755 {} +
+    - /bin/find ${DEPLOYPATH}css ${DEPLOYPATH}js ${DEPLOYPATH}assets -type f -exec /bin/chmod 644 {} +
+    - /bin/chmod 644 ${DEPLOYPATH}index.html ${DEPLOYPATH}kretivprint.html ${DEPLOYPATH}about.html
