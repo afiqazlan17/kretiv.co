@@ -4,9 +4,9 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/kretivco/kretiv.co/
-    - /bin/cp -f index.html kretivprint.html about.html $DEPLOYPATH
+    - /bin/cp -f *.html robots.txt sitemap.xml $DEPLOYPATH
     - /bin/cp -Rf css js assets $DEPLOYPATH
     # LiteSpeed returns 404 if folders are 0700 (seen on jobs.kretiv.co), so set permissions explicitly
     - /bin/find ${DEPLOYPATH}css ${DEPLOYPATH}js ${DEPLOYPATH}assets -type d -exec /bin/chmod 755 {} +
     - /bin/find ${DEPLOYPATH}css ${DEPLOYPATH}js ${DEPLOYPATH}assets -type f -exec /bin/chmod 644 {} +
-    - /bin/chmod 644 ${DEPLOYPATH}index.html ${DEPLOYPATH}kretivprint.html ${DEPLOYPATH}about.html
+    - /bin/chmod 644 ${DEPLOYPATH}*.html ${DEPLOYPATH}robots.txt ${DEPLOYPATH}sitemap.xml

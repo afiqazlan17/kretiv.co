@@ -1,0 +1,143 @@
+/* Department pages (KretivTech, KretivBrand, KretivEvent).
+   Loaded after print.css, which provides .p-hero, .feat, .spec and the catalogue cards.
+   Real screenshots and photos always sit inside a frame, so they read well in both themes. */
+
+.d-visual { width: min(1120px, 100% - 2 * var(--gutter)); margin: clamp(36px, 5vw, 64px) auto 0; }
+
+/* ---------- Laptop frame ---------- */
+.laptop { position: relative; width: min(960px, 100%); margin-inline: auto; }
+.laptop__screen {
+  position: relative; background: #0c0c0e; padding: 2.4% 2.4% 0;
+  border-radius: 18px 18px 0 0; border: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .7);
+}
+.laptop__screen::before { content: ""; position: absolute; top: 1%; left: 50%; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: #2a2a2e; }
+.laptop__screen img { display: block; width: 100%; aspect-ratio: 2000 / 1309; object-fit: cover; object-position: top; border-radius: 3px 3px 0 0; }
+.laptop__base {
+  position: relative; height: clamp(10px, 1.6vw, 16px); margin: 0 -7%;
+  background: linear-gradient(#d9d9de, #9a9aa2); border-radius: 0 0 16px 16px;
+}
+.laptop__base::before { content: ""; position: absolute; left: 50%; top: 0; width: 14%; height: 45%; transform: translateX(-50%); background: #b8b8be; border-radius: 0 0 10px 10px; }
+
+/* ---------- Phone frame ---------- */
+.phone {
+  position: relative; width: min(300px, 100%); margin-inline: auto;
+  padding: 14px; border-radius: 42px; background: #0c0c0e;
+  border: 1px solid rgba(255, 255, 255, .12);
+  box-shadow: 0 40px 70px -30px rgba(0, 0, 0, .7);
+}
+.phone::before { content: ""; position: absolute; top: 22px; left: 50%; width: 74px; height: 20px; transform: translateX(-50%); border-radius: 12px; background: #000; z-index: 2; }
+.phone img { display: block; width: 100%; border-radius: 30px; background: #fff; padding-top: 34px; }
+
+/* ---------- Framed photo ---------- */
+.frame { margin: 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--cork); background: var(--bark); box-shadow: 0 30px 60px -34px rgba(0, 0, 0, .6); }
+.frame img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform 1s var(--ease); }
+.frame:hover img { transform: scale(1.04); }
+.frame figcaption { padding: 12px 16px; border-top: 1px dashed var(--cork); }
+
+.trio { display: grid; grid-template-columns: 1fr 1.45fr 1fr; gap: clamp(10px, 1.6vw, 20px); align-items: center; }
+.trio .frame:nth-child(1) { transform: translateY(8%); }
+.trio .frame:nth-child(3) { transform: translateY(-6%); }
+
+/* ---------- Product blocks with a device ---------- */
+.product-block { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+.product-block--flip .product-block__art { order: 2; }
+.product-block__text > .label { display: block; margin-bottom: 20px; }
+.product-block__text .lead { margin-top: 22px; }
+.product-block__text .rows { margin-top: 30px; }
+.product-block__text .rows li { grid-template-columns: 44px 1fr; padding: 16px 0; }
+.product-block__text .btns { margin-top: 30px; }
+
+.fan { position: relative; height: clamp(300px, 34vw, 440px); overflow-x: clip; }  /* rotated cards must not widen the page on phones */
+.fan img {
+  position: absolute; top: 8%; left: 50%; width: 48%; aspect-ratio: 508 / 496; object-fit: cover;
+  border-radius: 12px; border: 1px solid var(--cork); box-shadow: 0 26px 50px -20px rgba(0, 0, 0, .6);
+  transition: transform .6s var(--ease);
+}
+.fan img:nth-child(1) { transform: translateX(-98%) rotate(-8deg); }
+.fan img:nth-child(2) { transform: translateX(-50%) translateY(-6%); z-index: 2; }
+.fan img:nth-child(3) { transform: translateX(-2%) rotate(8deg); }
+.fan:hover img:nth-child(1) { transform: translateX(-108%) rotate(-11deg); }
+.fan:hover img:nth-child(3) { transform: translateX(8%) rotate(11deg); }
+
+/* ---------- Numbered steps ---------- */
+.steps-row { display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); border-top: 1px dashed var(--cork); counter-reset: s; }
+.steps-row li { padding: 24px 22px 28px 0; display: grid; gap: 10px; align-content: start; }
+.steps-row li + li { border-left: 1px dashed var(--cork); padding-left: 22px; }
+.steps-row li::before { counter-increment: s; content: counter(s, decimal-leading-zero); font: 500 12px/1 var(--font-display); letter-spacing: .08em; color: var(--accent); margin-bottom: 14px; }
+.steps-row p { color: var(--cream-2); font-size: 15px; }
+
+/* ---------- Service cards ---------- */
+.svc-grid { display: grid; grid-template-columns: repeat(var(--cols, 3), 1fr); gap: 14px; }
+.svc { border: 1px dashed var(--cork); border-radius: 12px; padding: 26px; display: flex; flex-direction: column; gap: 12px; transition: border-color .3s, transform .4s var(--ease); }
+.svc:hover { border-color: var(--accent); transform: translateY(-3px); }
+.svc .n { font: 500 12px/1 var(--font-display); letter-spacing: .08em; color: var(--accent); }
+.svc p { color: var(--cream-2); font-size: 15px; }
+.svc ul { margin-top: auto; padding-top: 14px; border-top: 1px dashed var(--cork); display: grid; gap: 7px; }
+.svc li { font-size: 14px; color: var(--cream-2); padding-left: 16px; position: relative; }
+.svc li::before { content: ""; position: absolute; left: 0; top: .62em; width: 6px; height: 1px; background: var(--accent); }
+
+/* ---------- Brand board (Kretivco's own identity as the example) ---------- */
+.board { display: grid; grid-template-columns: 1.1fr 1fr 1fr; grid-template-rows: auto auto; gap: 12px; }
+.board > * { border-radius: 14px; border: 1px solid var(--cork); padding: clamp(18px, 2.4vw, 28px); min-height: 170px; display: flex; flex-direction: column; justify-content: space-between; }
+.board__logo { grid-row: span 2; background: #FCB03C; border-color: transparent; align-items: center; justify-content: center; }
+.board__logo img { width: 62%; filter: drop-shadow(0 20px 26px rgba(120, 20, 40, .35)); }
+.board__type { background: var(--bark); }
+.board__type b { font: 600 clamp(3.4rem, 6vw, 5.4rem)/.9 var(--font-display); }
+.board__swatches { padding: 0; overflow: hidden; flex-direction: row; }
+.board__swatches span { flex: 1; display: flex; align-items: flex-end; padding: 12px; font: 500 10px/1.2 var(--font-display); letter-spacing: .06em; text-transform: uppercase; }
+.board__tag { background: var(--pink); border-color: transparent; color: #ffedd7; }
+.board__tag b { font: 500 clamp(1.3rem, 2vw, 1.8rem)/1.02 var(--font-display); text-transform: uppercase; }
+.board__card { background: #ffedd7; color: #100904; border-color: transparent; }
+.board__card b { font: 600 15px/1.2 var(--font-display); text-transform: uppercase; letter-spacing: .04em; }
+.board__card small { font-size: 12px; opacity: .7; }
+.board figcaption { grid-column: 1 / -1; border: 0; min-height: 0; padding: 4px 2px 0; }
+
+/* ---------- Before / after ---------- */
+.shift { display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: stretch; }
+.shift > div { border-radius: 14px; padding: clamp(22px, 3vw, 34px); display: grid; gap: 12px; align-content: start; }
+.shift__before { border: 1px dashed var(--cork); color: var(--cream-2); }
+.shift__after { background: linear-gradient(135deg, #D51C5C, #8f1238); color: #ffedd7; }
+.shift__after .label { color: #FCB03C; }
+.shift li { display: flex; gap: 10px; align-items: baseline; }
+.shift__before li::before { content: "×"; color: var(--drift); }
+.shift__after li::before { content: "✓"; color: #FCB03C; }
+.shift__arrow { display: grid; place-items: center; font: 500 28px/1 var(--font-display); color: var(--accent); }
+
+/* ---------- Two-role split (cashier / owner) ---------- */
+.roles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 30px; }
+.roles > div { border: 1px dashed var(--cork); border-radius: 12px; padding: 20px; display: grid; gap: 10px; align-content: start; }
+.roles ul { display: grid; gap: 7px; }
+.roles li { font-size: 14.5px; color: var(--cream-2); padding-left: 16px; position: relative; }
+.roles li::before { content: ""; position: absolute; left: 0; top: .62em; width: 6px; height: 1px; background: var(--accent); }
+
+@media (max-width: 1000px) {
+  .svc-grid { --cols: 2; }
+  .steps-row { --n: 2 !important; }
+  .steps-row li:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .steps-row li:nth-child(n+3) { border-top: 1px dashed var(--cork); }
+}
+@media (max-width: 860px) {
+  .product-block { grid-template-columns: 1fr; }
+  .product-block--flip .product-block__art { order: 0; }
+  .trio { grid-template-columns: 1fr 1fr; }
+  .trio .frame { transform: none !important; }
+  .trio .frame:nth-child(2) { grid-column: 1 / -1; order: -1; }
+  .board { grid-template-columns: 1fr 1fr; }
+  .board__logo { grid-row: auto; grid-column: 1 / -1; min-height: 220px; }
+  .board__logo img { width: 34%; }
+  .shift { grid-template-columns: 1fr; }
+  .shift__arrow { transform: rotate(90deg); }
+}
+@media (max-width: 600px) {
+  .svc-grid { --cols: 1; }
+  .steps-row { --n: 1 !important; }
+  .steps-row li { border-left: 0 !important; padding-left: 0 !important; }
+  .steps-row li + li { border-top: 1px dashed var(--cork); }
+  .roles { grid-template-columns: 1fr; }
+  .board { grid-template-columns: 1fr; }
+  .fan img { width: 52%; }
+  .fan img:nth-child(1) { transform: translateX(-88%) rotate(-7deg); }
+  .fan img:nth-child(3) { transform: translateX(-12%) rotate(7deg); }
+  .laptop__base { margin: 0 -3%; }
+}
