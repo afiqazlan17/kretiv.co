@@ -168,6 +168,12 @@
 /* Tech apps */
 .apps { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 44px; }
 
+.app {
+  display: flex; flex-direction: column;
+  border: 1px dashed var(--cork); border-radius: 12px; overflow: hidden;
+  text-decoration: none; background: var(--glass);
+  transition: border-color .3s, transform .4s var(--ease);
+}
 .app:hover { border-color: var(--gold); transform: translateY(-4px); }
 .app__art { position: relative; height: 190px; background: var(--bark); overflow: hidden; }
 .app__body { padding: 20px 20px 22px; display: grid; gap: 8px; align-content: start; flex: 1; }

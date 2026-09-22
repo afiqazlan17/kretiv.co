@@ -141,6 +141,12 @@ ul, ol { padding: 0; list-style: none; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .brand img { width: 30px; height: auto; }
 .brand span { font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: .02em; text-transform: uppercase; }
+.brand small { font: inherit; font-weight: 500; opacity: .72; }
+/* small phones: MEDIAWORKS drops under KRETIVCO so the nav never overflows */
+@media (max-width: 480px) {
+  .brand span { line-height: 1; }
+  .brand small { display: block; font-size: 9.5px; letter-spacing: .26em; margin-top: 3px; opacity: .8; }
+}
 .nav__links { margin-left: auto; display: flex; align-items: center; gap: clamp(18px, 2.4vw, 34px); }
 .nav__links a:not(.btn) { text-transform: none; font-size: 14px; letter-spacing: .01em; text-decoration: none; color: var(--cream-2); padding: 8px 0; position: relative; transition: color .2s; }
 .nav__links a:not(.btn):hover, .nav__links a[aria-current="page"] { color: var(--cream); }
