@@ -129,8 +129,6 @@
   padding: calc(var(--nav-h) + 56px) 0 120px;
 }
 .chapter--hero { margin-top: -100vh; margin-top: -100svh; }
-.chapter--wide { align-items: flex-start; padding-top: calc(var(--nav-h) + 90px); }
-.chapter--wide .wrap { padding-top: 8px; }
 .chapter > .wrap { width: min(var(--max), 100% - 2 * var(--gutter)); }
 .chapter__inner { width: min(640px, 47%); }
 .chapter__inner > .label { display: block; margin-bottom: 22px; }
@@ -167,19 +165,6 @@
 /* Tech apps */
 .apps { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 44px; }
 
-/* Event gallery: real photos, so they sit outside chapter__inner and use the full chapter width */
-.event-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: clamp(40px, 6vw, 72px); }
-.event-gallery figure { margin: 0; border-radius: 10px; overflow: hidden; position: relative; }
-.event-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .6s var(--ease); }
-.event-gallery figure:hover img { transform: scale(1.06); }
-.event-gallery figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; background: linear-gradient(to top, rgba(16, 9, 4, .85), transparent); color: var(--cream); }
-
-.app {
-  display: flex; flex-direction: column;
-  border: 1px dashed var(--cork); border-radius: 12px; overflow: hidden;
-  text-decoration: none; background: var(--glass);
-  transition: border-color .3s, transform .4s var(--ease);
-}
 .app:hover { border-color: var(--gold); transform: translateY(-4px); }
 .app__art { position: relative; height: 190px; background: var(--bark); overflow: hidden; }
 .app__body { padding: 20px 20px 22px; display: grid; gap: 8px; align-content: start; flex: 1; }
