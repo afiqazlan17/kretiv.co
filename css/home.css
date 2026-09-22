@@ -30,7 +30,10 @@
   aspect-ratio: 1859 / 1898;
   transition: transform 1.4s var(--ease), filter 1.4s var(--ease);
 }
-.k { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; display: block; }
+.k { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; display: block; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: translateZ(0); }
+/* Double-sided sign: the back face re-uses the front layers, turned 180°, so the K reads
+   correctly (and keeps building) when the spin shows its back. */
+.k--back { transform: translateZ(calc(-23 * var(--step, 2.8px))) rotateY(180deg); }
 
 /* 3D: the front face sits on 22 stacked copies of the silhouette, each pushed back in Z */
 .k3d {

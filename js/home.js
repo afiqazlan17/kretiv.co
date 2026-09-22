@@ -1,9 +1,10 @@
 // Home: build the K as the visitor scrolls through the four departments.
-//   layer 0 — Print → pink frame rises from the foundation (and the K spins 360°)
+//   layer 0 — Print → pink frame rises from the foundation
 //   layer 1 — Tech  → gold fill pours in
 //   layer 2 — Brand → the bulb + brush detail is drawn
 //   layer 3 — Event → lights on: the bulb glows
 //   layer 4 — Done  → blueprint falls away, K glows
+//   The K turns 360° slowly across Print → Event; it is double-sided so no layer is hidden.
 
 (() => {
   const stage = document.querySelector('.stage');
@@ -83,14 +84,14 @@
     steps.forEach((s, i) => s.style.setProperty('--p', p[i]));
   }
 
-  // spin progress: from the very first scroll to the moment the frame is complete (end of Print)
-  const printEl = document.getElementById('print');
+  // spin progress: one slow turn from the first scroll to the end of the last department (Event)
+  const lastEl = document.getElementById('event');
   let spinP = 0;
 
   function tick() {
     const p = layered.map(progress);
     render(p);
-    const endY = printEl.offsetTop + printEl.offsetHeight - innerHeight * 0.55;
+    const endY = lastEl.offsetTop + lastEl.offsetHeight - innerHeight * 0.55;
     spinP = clamp(scrollY / endY);
 
     // current chapter = last one whose top passed the middle of the screen
@@ -137,13 +138,11 @@
     sx += (mx - sx) * .05;
     sy += (my - sy) * .05;
     const sway = Math.sin(t / 2600) * 4 * done;
-    // Print (frame rising): one full 360° turn, landing face-on just as the gold fill starts.
-    // Tech, Brand, Event: hold facing the visitor with a gentle swing, so every layer is seen.
-    const FRAME_END = 0.25;
+    // One slow 360° turn spread across all four departments (about 90° each). The K is
+    // double-sided, so whichever face is showing, the layer being built is visible.
     const ease = 0.65 * spinP + 0.35 * smooth(0, 1, spinP); // mostly even speed, soft start/finish
     const turn = -30 + 370 * ease;
-    const hold = total > FRAME_END ? 7 * Math.sin((total - FRAME_END) / (1 - FRAME_END) * Math.PI * 2) : 0;
-    const tRy = turn + hold + sway + sx * 18;
+    const tRy = turn + sway + sx * 18;
     const tRx = 12 - 4 * total - sy * 10;
     ry += (tRy - ry) * .06;
     rx += (tRx - rx) * .08;
