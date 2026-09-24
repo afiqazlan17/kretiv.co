@@ -138,13 +138,15 @@
   function spin(t) {
     sx += (mx - sx) * .05;
     sy += (my - sy) * .05;
-    const sway = Math.sin(t / 2600) * 4 * done;
+    const sway = Math.sin(t / 2600) * 2.5 * done;
     // One slow 360° turn spread across all four departments (about 90° each). The K is
-    // double-sided, so whichever face is showing, the layer being built is visible.
+    // double-sided, so whichever face is showing, the layer being built is visible. It has to
+    // land on a full 360° (dead front): any leftover angle leaves the extrusion sticking out
+    // behind the finished K, and the same goes for the tilt, which flattens as the build ends.
     const ease = 0.65 * spinP + 0.35 * smooth(0, 1, spinP); // mostly even speed, soft start/finish
-    const turn = -30 + 370 * ease;
-    const tRy = turn + sway + sx * 18;
-    const tRx = 12 - 4 * total - sy * 10;
+    const turn = -30 + 390 * ease;
+    const tRy = turn + sway + sx * 18 * (1 - .5 * done);
+    const tRx = 12 - 10 * total - sy * 10 * (1 - .5 * done);
     ry += (tRy - ry) * .06;
     rx += (tRx - rx) * .08;
     k3d.style.setProperty('--ry', ry.toFixed(2) + 'deg');

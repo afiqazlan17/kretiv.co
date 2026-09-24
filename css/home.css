@@ -35,18 +35,24 @@
    correctly (and keeps building) when the spin shows its back. */
 .k--back { transform: translateZ(calc(-42 * var(--step, 1.6px))) rotateY(180deg); }
 
-/* 3D: the front face sits on 22 stacked copies of the silhouette, each pushed back in Z */
+/* 3D: the front face sits on 40 stacked copies of the silhouette, each pushed back in Z */
 .k3d {
   position: absolute; inset: 0;
   transform-style: preserve-3d;
   transform: perspective(1800px) rotateX(var(--rx, 10deg)) rotateY(var(--ry, -30deg));
   will-change: transform;
 }
+/* The slab is built twice: one stack of slices seen from the front, and a mirrored copy for
+   the back half of the turn. The K is asymmetric, so a single stack shows its mirror image
+   once the spin passes 90° and pokes out around the face. backface-visibility lets the browser
+   paint whichever stack is facing the viewer and skip the other. */
 .kdepth { position: absolute; inset: 0; transform-style: preserve-3d; }
+.kdepth--flip { transform: translateZ(calc(-42 * var(--step, 1.6px))) rotateY(180deg); }
 .kdepth svg {
   position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;
   transform: translateZ(calc(var(--i) * var(--step, 2.8px) * -1));
   clip-path: inset(calc((1 - var(--frame, .08)) * 100%) -5% -5% -5%);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
 }
 .kdepth use { --kf: inherit; }
 .kdepth .kdepth__wire { clip-path: none; opacity: calc(.75 * var(--wire, 1)); transition: opacity .4s linear; }
@@ -235,6 +241,8 @@
   /* phones: half the extrusion layers (same thickness) to keep scrolling smooth */
   .kbox { --step: clamp(1.7px, .22vw, 3.2px); }
   .kdepth svg:nth-child(2n+4) { display: none; }
+  .kdepth--flip svg:nth-child(2n) { display: none; }
+  .kdepth--flip { transform: translateZ(calc(-21 * var(--step, 3.2px))) rotateY(180deg); }
   .k--back { transform: translateZ(calc(-21 * var(--step, 3.2px))) rotateY(180deg); }
   .chapter__inner .btns { position: relative; z-index: 2; }
   .steps a { flex: 1; justify-content: center; padding: 11px 8px; }
