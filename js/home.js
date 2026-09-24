@@ -56,6 +56,7 @@
     const frame = BASE + (1 - BASE) * fPrint;
     const yFrame = rise(clipFrame, frame);
     kbox.style.setProperty('--frame', frame);
+    kbox.style.setProperty('--wire', (1 - smooth(0.15, 0.95, fPrint)).toFixed(3)); // blueprint fades as the frame rises
     const yFill = rise(clipFill, fTech);
 
     detLine.style.strokeDashoffset = detLen * (1 - smooth(0, 0.75, fBrand));

@@ -25,7 +25,7 @@
   transition: opacity .6s var(--ease);
 }
 .kbox {
-  position: relative; --step: clamp(1.6px, .2vw, 3px);
+  position: relative; --step: clamp(0.85px, .11vw, 1.6px);
   width: min(38vw, 64vh, 620px);
   aspect-ratio: 1859 / 1898;
   transition: transform 1.4s var(--ease), filter 1.4s var(--ease);
@@ -33,7 +33,7 @@
 .k { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; display: block; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: translateZ(0); }
 /* Double-sided sign: the back face re-uses the front layers, turned 180°, so the K reads
    correctly (and keeps building) when the spin shows its back. */
-.k--back { transform: translateZ(calc(-23 * var(--step, 2.8px))) rotateY(180deg); }
+.k--back { transform: translateZ(calc(-42 * var(--step, 1.6px))) rotateY(180deg); }
 
 /* 3D: the front face sits on 22 stacked copies of the silhouette, each pushed back in Z */
 .k3d {
@@ -49,8 +49,8 @@
   clip-path: inset(calc((1 - var(--frame, .08)) * 100%) -5% -5% -5%);
 }
 .kdepth use { --kf: inherit; }
-.kdepth .kdepth__wire { clip-path: none; opacity: .75; }
-.kdepth .kdepth__wire:nth-child(2) { opacity: .35; }
+.kdepth .kdepth__wire { clip-path: none; opacity: calc(.75 * var(--wire, 1)); transition: opacity .4s linear; }
+.kdepth .kdepth__wire:nth-child(2) { opacity: calc(.35 * var(--wire, 1)); }
 .k .k-frame, .kdepth use { fill: var(--kf, var(--pink)); }
 
 .k-blue {
@@ -233,7 +233,9 @@
 
   .steps { left: var(--gutter); right: var(--gutter); bottom: calc(14px + env(safe-area-inset-bottom)); justify-content: space-between; }
   /* phones: half the extrusion layers (same thickness) to keep scrolling smooth */
+  .kbox { --step: clamp(1.7px, .22vw, 3.2px); }
   .kdepth svg:nth-child(2n+4) { display: none; }
+  .k--back { transform: translateZ(calc(-21 * var(--step, 3.2px))) rotateY(180deg); }
   .chapter__inner .btns { position: relative; z-index: 2; }
   .steps a { flex: 1; justify-content: center; padding: 11px 8px; }
   .products { gap: 8px; }
