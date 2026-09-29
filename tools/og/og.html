@@ -1,0 +1,67 @@
+<!doctype html>
+<!-- Share images (og:image) for each department, 1200×630. Rendered by tools/og/shoot.mjs. -->
+<html lang="en"><head><meta charset="utf-8"><title>OG</title>
+<style>
+@font-face { font-family: "Inter"; font-weight: 400 500; src: url("../../assets/fonts/inter-latin.woff2") format("woff2"); }
+@font-face { font-family: "Inter Tight"; font-weight: 500 600; src: url("../../assets/fonts/inter-tight-latin.woff2") format("woff2"); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { width: 1200px; height: 630px; overflow: hidden; background: #100904; color: #ffedd7; font-family: Inter, sans-serif; }
+.og { position: relative; width: 1200px; height: 630px; overflow: hidden;
+  background: radial-gradient(ellipse 60% 70% at 78% 50%, #24140a 0%, rgba(36, 20, 10, 0) 70%), #100904; }
+.grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,237,215,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,237,215,.07) 1px, transparent 1px);
+  background-size: 56px 56px; -webkit-mask-image: radial-gradient(ellipse 50% 70% at 78% 50%, #000 20%, transparent 80%); }
+.brand { position: absolute; left: 64px; top: 56px; display: flex; align-items: center; gap: 14px; font: 600 24px/1 "Inter Tight"; letter-spacing: .02em; text-transform: uppercase; }
+.brand img { width: 40px; } .brand small { font: inherit; font-weight: 500; opacity: .72; }
+.text { position: absolute; left: 64px; top: 176px; width: 600px; }
+.label { font: 500 18px/1 "Inter Tight"; letter-spacing: .1em; text-transform: uppercase; color: #FCB03C; }
+h1 { margin-top: 24px; font: 600 80px/.92 "Inter Tight"; text-transform: uppercase; letter-spacing: -.01em; }
+h1 span { color: #FCB03C; }
+.foot { position: absolute; left: 64px; bottom: 52px; display: flex; gap: 22px; font: 500 18px/1 "Inter Tight"; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,237,215,.6); }
+.foot b { color: #ffedd7; font-weight: 500; }
+.art { position: absolute; right: 0; top: 0; width: 520px; height: 630px; }
+.art img { position: absolute; }
+.soft { -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 60%, transparent 100%); }
+/* print */
+.p .b1 { width: 390px; left: 70px; top: 120px; } .p .b2 { width: 170px; left: 10px; top: 360px; } .p .b3 { width: 230px; left: 250px; top: 380px; }
+/* tech */
+.t .lap { position: absolute; left: 24px; top: 150px; width: 450px; padding: 10px; border-radius: 16px 16px 6px 6px; background: #1d1613; border: 1px solid rgba(255,237,215,.14); }
+.t .lap img { position: static; display: block; width: 100%; border-radius: 6px; }
+.t .base { position: absolute; left: 4px; top: 456px; width: 490px; height: 16px; border-radius: 0 0 14px 14px; background: linear-gradient(#4a3c34, #211a16); }
+.t .card { position: absolute; left: 0; top: 330px; width: 190px; height: 186px; border-radius: 18px; overflow: hidden; transform: rotate(-7deg); box-shadow: 0 24px 50px rgba(0,0,0,.55); outline: 1px solid rgba(255,237,215,.16); }
+.t .card img { position: static; width: 100%; height: 100%; object-fit: cover; }
+/* brand */
+.b .tile { position: absolute; border-radius: 16px; }
+.b .logo { left: 40px; top: 120px; width: 250px; height: 250px; background: #FCB03C; display: grid; place-items: center; }
+.b .logo img { position: static; width: 160px; filter: drop-shadow(0 16px 22px rgba(120,20,40,.35)); }
+.b .aa { left: 306px; top: 120px; width: 170px; height: 250px; background: #2a1c12; border: 1px solid rgba(255,237,215,.14); font: 600 110px/1 "Inter Tight"; display: grid; place-items: center; }
+.b .sw { top: 386px; height: 120px; width: 104px; display: flex; align-items: flex-end; padding: 12px; font: 500 12px/1.2 "Inter Tight"; letter-spacing: .05em; text-transform: uppercase; }
+/* event */
+.e .glow { position: absolute; left: 30px; top: 85px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(252,176,60,.42) 0%, rgba(252,176,60,.12) 38%, transparent 66%); }
+.e .k { position: absolute; left: 115px; top: 150px; width: 290px; filter: drop-shadow(0 0 40px rgba(252,176,60,.5)); }
+.e .chips { position: absolute; left: 40px; top: 486px; width: 460px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.e .chips span { padding: 8px 12px; border: 1px dashed rgba(255,237,215,.35); border-radius: 30px; font: 500 13px/1 "Inter Tight"; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,237,215,.8); }
+</style></head>
+<body><div class="og" id="og"><div class="grid"></div>
+<div class="brand"><img src="../../assets/k-logo-96.webp" alt=""><span>Kretivco <small>Mediaworks</small></span></div>
+<div class="text"><p class="label" id="label"></p><h1 id="h1"></h1></div>
+<div class="foot"><b>kretiv.co</b><span>Subang Jaya, Selangor</span></div>
+<div class="art" id="art"></div></div>
+<script>
+const D = {
+  print: { label: 'KretivPrint by Kretivco', h1: 'Print that gets <span>noticed.</span>', cls: 'p',
+    art: '<img class="b1 soft" src="../../assets/print-dark/backdrop.webp"><img class="b2 soft" src="../../assets/print-dark/bunting.webp"><img class="b3 soft" src="../../assets/print-dark/banner.webp">' },
+  tech: { label: 'KretivTech by Kretivco', h1: 'Systems that do <span>the work.</span>', cls: 't',
+    art: '<div class="lap"><img src="../../assets/pos/pos-laptop-800.webp"></div><div class="base"></div><div class="card"><img src="../../assets/tech/undangan-1.webp"></div>' },
+  brand: { label: 'KretivBrand by Kretivco', h1: 'A brand people <span>trust.</span>', cls: 'b',
+    art: '<div class="tile logo"><img src="../../assets/k-logo.webp"></div><div class="tile aa">Aa</div>' +
+      [['#D51C5C', '#ffedd7', 40], ['#FCB03C', '#100904', 156], ['#7A1A2E', '#ffedd7', 272], ['#100904', '#ffedd7', 388]].map(([bg, c, x]) =>
+        `<div class="tile sw" style="left:${x - 20}px;background:${bg};color:${c};border:1px solid rgba(255,237,215,.14)">${bg}</div>`).join('') },
+  event: { label: 'KretivEvent by Kretivco', h1: 'Moments people <span>remember.</span>', cls: 'e',
+    art: '<div class="glow"></div><img class="k" src="../../assets/k-logo.webp"><div class="chips"><span>Launches</span><span>Corporate</span><span>Weddings</span><span>Booths</span></div>' },
+};
+const d = D[new URLSearchParams(location.search).get('d')];
+document.getElementById('label').textContent = d.label;
+document.getElementById('h1').innerHTML = d.h1;
+const art = document.getElementById('art'); art.className = 'art ' + d.cls; art.innerHTML = d.art;
+window.READY = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => {})))).then(() => true);
+</script></body></html>

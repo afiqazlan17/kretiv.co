@@ -259,3 +259,24 @@ ul, ol { padding: 0; list-style: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
+/* ---------- Legal pages (privacy, terms) ---------- */
+.section--tight { padding-top: 0; }
+.legal { max-width: 44em; font-size: clamp(16px, 1.15vw, 17px); line-height: 1.62; }
+.legal__meta { color: var(--cream-3); font-size: 14px; }
+.legal__toc { display: flex; flex-wrap: wrap; gap: 22px; margin: 18px 0 8px; }
+.legal h2 { font-family: var(--font-display); text-transform: uppercase; font-weight: 500; font-size: clamp(1.1rem, 1.5vw, 1.35rem); line-height: 1.15; color: var(--cream); margin: 40px 0 14px; padding-top: 22px; border-top: 1px dashed var(--cork); }
+.legal p, .legal li { color: var(--cream-2); }
+.legal p + p, .legal ul + p, .legal p + ul { margin-top: 12px; }
+.legal ul { display: grid; gap: 9px; }
+.legal li { position: relative; padding-left: 18px; }
+.legal li::before { content: ""; position: absolute; left: 0; top: .72em; width: 7px; height: 1px; background: var(--accent); }
+.legal p a:not(.link) { color: var(--accent); }
+.legal__lang { margin-top: 88px; }
+.legal .legal__title { border-top: 0; padding-top: 0; margin-top: 14px; font-size: clamp(1.8rem, 3.4vw, 2.8rem); line-height: .95; }
+.footer__legal a { color: inherit; }
+
+/* AI-made photos carry a small tag until real ones replace them */
+.frame--ill { position: relative; }
+.ill-tag { position: absolute; left: 12px; bottom: 12px; padding: 5px 10px; border-radius: 30px; background: rgba(16, 9, 4, .72); color: rgba(255, 237, 215, .82); font: 500 11px/1 var(--font-display); letter-spacing: .1em; text-transform: uppercase; pointer-events: none; }
+.frame--ill:has(figcaption) .ill-tag { bottom: auto; top: 12px; }
