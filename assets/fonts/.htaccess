@@ -1,0 +1,5 @@
+# Font files never change in place (a new version gets a new name). That makes it safe to let browsers keep them for a year.
+<IfModule mod_headers.c>
+  Header set Cache-Control "public, max-age=31536000, immutable"
+  Header unset Expires
+</IfModule>

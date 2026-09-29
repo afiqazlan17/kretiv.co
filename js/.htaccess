@@ -1,0 +1,6 @@
+# Files here are linked with a ?v=<content hash> stamp (tools/stamp.py), so a changed file gets a new
+# address. That makes it safe to let browsers keep them for a year.
+<IfModule mod_headers.c>
+  Header set Cache-Control "public, max-age=31536000, immutable"
+  Header unset Expires
+</IfModule>
