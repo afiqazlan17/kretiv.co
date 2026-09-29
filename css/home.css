@@ -1,5 +1,5 @@
-/* Home — the K is built as you scroll:
-   blueprint → frame (Print) → fill (Work) → detail (Tech) → complete */
+/* Home — the finished K comes apart into its four layers as you scroll:
+   frame (Print) → fill (Tech) → detail (Brand) → light (Event) → back together */
 
 .build { position: relative; }
 
@@ -31,58 +31,31 @@
   transition: transform 1.4s var(--ease), filter 1.4s var(--ease);
 }
 .k { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; display: block; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: translateZ(0); }
-/* Double-sided sign: the back face re-uses the front layers, turned 180°, so the K reads
-   correctly (and keeps building) when the spin shows its back. */
-.k--back { transform: translateZ(calc(-42 * var(--step, 1.6px))) rotateY(180deg); }
+/* the bulb sits at (1012, 837) in the K's viewBox, so the light swells from there */
+.k--light { transform-origin: 50% 40.7%; }
 
-/* 3D: the front face sits on 40 stacked copies of the silhouette, each pushed back in Z */
+/* 3D: the frame layer sits on 40 stacked copies of the silhouette, each pushed back in Z;
+   home.js moves every layer (and this stack) along Z */
 .k3d {
   position: absolute; inset: 0;
   transform-style: preserve-3d;
   transform: perspective(1800px) rotateX(var(--rx, 10deg)) rotateY(var(--ry, -30deg));
   will-change: transform;
 }
-/* The slab is built twice: one stack of slices seen from the front, and a mirrored copy for
-   the back half of the turn. The K is asymmetric, so a single stack shows its mirror image
-   once the spin passes 90° and pokes out around the face. backface-visibility lets the browser
-   paint whichever stack is facing the viewer and skip the other. */
 .kdepth { position: absolute; inset: 0; transform-style: preserve-3d; }
-.kdepth--flip { transform: translateZ(calc(-42 * var(--step, 1.6px))) rotateY(180deg); }
 .kdepth svg {
   position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;
   transform: translateZ(calc(var(--i) * var(--step, 2.8px) * -1));
-  clip-path: inset(calc((1 - var(--frame, .08)) * 100%) -5% -5% -5%);
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
 }
 .kdepth use { --kf: inherit; }
-.kdepth .kdepth__wire { clip-path: none; opacity: calc(.75 * var(--wire, 1)); transition: opacity .4s linear; }
-.kdepth .kdepth__wire:nth-child(2) { opacity: calc(.35 * var(--wire, 1)); }
 .k .k-frame, .kdepth use { fill: var(--kf, var(--pink)); }
 
-.k-blue {
-  fill: none; stroke: var(--cream); stroke-opacity: .38; stroke-width: 4;
-  stroke-dasharray: 20 16;
-  animation: march 30s linear infinite, blueIn 1.6s var(--ease) both;
-  transition: stroke-opacity 1s;
-}
-@keyframes march { to { stroke-dashoffset: -720; } }
-@keyframes blueIn { from { opacity: 0; } }
 .k-fill  { fill: #F9AE3C; }
-.k-det   { fill: var(--pink); opacity: 0; }
-.k-bulb  { opacity: 0; pointer-events: none; }
+.k-det   { fill: var(--pink); }
+.k-bulb  { pointer-events: none; }
 .k-detline { fill: none; stroke: var(--gold); stroke-width: 7; stroke-linejoin: round; }
-.k-front { stroke: var(--gold); stroke-width: 5; stroke-dasharray: 26 14; opacity: 0; transition: opacity .3s; }
-.k-front.is-on { opacity: 1; }
 
-.ruler {
-  position: absolute; top: 0; bottom: 0; left: -52px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  border-right: 1px dashed var(--cork); padding-right: 10px;
-  font: 500 10px/1 var(--font-display); letter-spacing: .08em; color: var(--cream-3);
-  transition: opacity 1s;
-}
-.ruler i { font-style: normal; position: relative; }
-.ruler i::after { content: ""; position: absolute; right: -14px; top: 50%; width: 8px; border-top: 1px solid var(--drift); }
 
 .hud {
   position: absolute; right: var(--gutter); top: calc(var(--nav-h) + 22px);
@@ -95,8 +68,7 @@
 
 /* Complete */
 .stage.is-done .stage__grid { opacity: 0; }
-.stage.is-done .ruler, .stage.is-done .hud { opacity: 0; }
-.stage.is-done .k-blue { stroke-opacity: 0; }
+.stage.is-done .hud { opacity: 0; }
 .stage.is-done .kbox {
   transform: scale(1.04);
   filter: drop-shadow(0 0 60px rgba(252, 176, 60, .28)) drop-shadow(0 30px 60px var(--k-shadow));
@@ -227,7 +199,7 @@
   /* K sits in the top of the screen; text scrolls up underneath and over it */
   .kwrap { left: 0; right: 0; top: var(--nav-h); bottom: auto; height: 44svh; height: 44vh; }
   .kbox { width: min(60vw, 34vh, 340px); }
-  .ruler, .hud { display: none; }
+  .hud { display: none; }
   .stage__grid { -webkit-mask-image: radial-gradient(ellipse 70% 40% at 50% 28%, #000 20%, transparent 80%); mask-image: radial-gradient(ellipse 70% 40% at 50% 28%, #000 20%, transparent 80%); }
   .stage.is-dim .kwrap { opacity: .2; }
 
@@ -240,10 +212,7 @@
   .steps { left: var(--gutter); right: var(--gutter); bottom: calc(14px + env(safe-area-inset-bottom)); justify-content: space-between; }
   /* phones: half the extrusion layers (same thickness) to keep scrolling smooth */
   .kbox { --step: clamp(1.7px, .22vw, 3.2px); }
-  .kdepth svg:nth-child(2n+4) { display: none; }
-  .kdepth--flip svg:nth-child(2n) { display: none; }
-  .kdepth--flip { transform: translateZ(calc(-21 * var(--step, 3.2px))) rotateY(180deg); }
-  .k--back { transform: translateZ(calc(-21 * var(--step, 3.2px))) rotateY(180deg); }
+  .kdepth svg:nth-child(2n) { display: none; }
   .chapter__inner .btns { position: relative; z-index: 2; }
   .steps a { flex: 1; justify-content: center; padding: 11px 8px; }
   .products { gap: 8px; }
