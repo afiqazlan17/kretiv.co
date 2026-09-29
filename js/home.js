@@ -22,6 +22,7 @@
   const steps = [...document.querySelectorAll('.steps a')];
   const stepsNav = document.querySelector('.steps');
   const build = document.getElementById('build');
+  const inners = [...document.querySelectorAll('.chapter__inner')];
 
   // department (Print, Tech, Brand, Event) → the layer it brings forward
   const LAYER_OF = [0, 1, 3, 2];
@@ -62,9 +63,13 @@
       hudPhase.textContent = lastPhase;
       hudPct.textContent = layer >= 0 && layer <= 3 ? '0' + (layer + 1) : '04';
     }
-    // dim the K only once the chapter's text has scrolled up over it (matters on phones)
-    const textTop = cur.querySelector('.chapter__inner').getBoundingClientRect().top;
-    stage.classList.toggle('is-dim', layer >= 0 && layer <= 3 && textTop < innerHeight * 0.5);
+    // dim the K whenever any chapter's text or buttons sit on top of it — on phones they scroll
+    // over it, including the stretch where one chapter's buttons are still up while the next begins
+    const k = kbox.getBoundingClientRect();
+    stage.classList.toggle('is-dim', inners.some(el => {
+      const r = el.getBoundingClientRect();
+      return r.bottom > k.top + 12 && r.top < k.bottom - 12 && r.right > k.left + 12 && r.left < k.right - 12;
+    }));
     steps.forEach((s, i) => s.classList.toggle('is-active', i === layer));
 
     const b = build.getBoundingClientRect();

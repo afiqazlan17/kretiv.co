@@ -10,7 +10,7 @@
 
 .founders { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); }
 .founder { display: grid; gap: 28px; align-content: start; }
-.founder__photo { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 4.6; background: var(--gold); }
+.founder__photo { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 4.6; background: var(--gold); max-width: 440px; }  /* the 799px photos stay sharp on Retina up to here */
 .founder__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; transition: transform 1.2s var(--ease); }
 .founder:hover .founder__photo img { transform: scale(1.03); }
 .founder__text > .label { display: block; margin-bottom: 14px; }
